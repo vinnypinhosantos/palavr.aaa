@@ -1,4 +1,5 @@
 import random
+from functions import novo_palpite, verifica_letra, verifica_acerto
 
 tentativas = 5
 
@@ -9,24 +10,11 @@ palpite = input("Digite seu palpite: ")
 tentativa_atual = 1
 
 while tentativa_atual < tentativas:
-    letra_atual = 0
-    for letra in palpite:
-        if letra == palavra_escolhida[letra_atual]:
-            print(f"\033[32m{letra.upper()}\033[0;0m", end=" ")
-        else:
-            if letra in palavra_escolhida:
-                print(f"\033[33m{letra.upper()}\033[0;0m", end=" ")
-            else:
-                print(f"{letra.upper()}", end=" ")
-        letra_atual += 1
-    if palpite == palavra_escolhida:
-        print("\nVocê acetou!")
+    verifica_letra(palpite, palavra_escolhida)
+    if verifica_acerto(palpite, palavra_escolhida):
         break
+    palpite = novo_palpite()
     tentativa_atual += 1
-    palpite = input("\nDigite um novo palpite: ")
-    if palpite == palavra_escolhida:
-        print("\nVocê acetou!")
-        break
 
 if palpite != palavra_escolhida:
     print(f"VOCÊ ERROU! A PALAVRA ERA {palavra_escolhida.upper()}")
